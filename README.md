@@ -1,6 +1,10 @@
 
 BUILD AND RUN:go build -o main ./api/cmd/main.go && ./main
+
 [this command will generate binary and run]
+
+
+
 To generate swagger:swag init -g api/cmd/main.go --output ./api/docs
 
 
