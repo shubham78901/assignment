@@ -16,9 +16,9 @@
         "version": "1.0"
     },
     "host": "localhost:8000",
-    "basePath": "/api",
+    "basePath": "/",
     "paths": {
-        "/countries/search": {
+        "/api/countries/search": {
             "get": {
                 "description": "Fetches details of a country using its name.",
                 "consumes": [

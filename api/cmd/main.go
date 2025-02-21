@@ -33,7 +33,7 @@ import (
 // @license.url https://opensource.org/licenses/MIT
 
 // @host localhost:8000
-// @BasePath /api
+// @BasePath /
 func main() {
 	logger.InitLogger()
 	log := logger.GetLogger()

@@ -1,4 +1,4 @@
-basePath: /api
+basePath: /
 definitions:
   model.Country:
     properties:
@@ -41,7 +41,7 @@ info:
   title: Country API
   version: "1.0"
 paths:
-  /countries/search:
+  /api/countries/search:
     get:
       consumes:
       - application/json

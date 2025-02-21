@@ -24,7 +24,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/countries/search": {
+        "/api/countries/search": {
             "get": {
                 "description": "Fetches details of a country using its name.",
                 "consumes": [
@@ -125,7 +125,7 @@ const docTemplate = `{
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "localhost:8000",
-	BasePath:         "/api",
+	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "Country API",
 	Description:      "This is an API for fetching country information.",
