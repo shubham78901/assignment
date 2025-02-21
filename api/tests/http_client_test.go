@@ -1,4 +1,3 @@
-// tests/http_client_test.go
 package tests
 
 import (
@@ -7,6 +6,8 @@ import (
 	"assignment/api/internal/service"
 	"context"
 	"testing"
+
+	"go.uber.org/zap"
 )
 
 func TestFetchCountryData(t *testing.T) {
@@ -19,9 +20,12 @@ func TestFetchCountryData(t *testing.T) {
 	svc := service.NewCountryService(c)
 	ctx := context.Background()
 
+	log.Info("Starting TestFetchCountryData")
+
+	// Test fetching country data
 	_, err := svc.GetCountry(ctx, "India")
 	if err != nil {
-		log.Error("Test failed: Expected successful fetch", logger.ErrorField(err))
+		log.Error("Test failed: Expected successful fetch", zap.Error(err))
 		t.Errorf("Expected successful fetch, got error: %v", err)
 	} else {
 		log.Info("Test passed: Successfully fetched country data")

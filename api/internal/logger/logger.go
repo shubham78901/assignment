@@ -1,4 +1,3 @@
-// internal/logger/logger.go
 package logger
 
 import (
@@ -7,15 +6,24 @@ import (
 
 var log *zap.Logger
 
+// InitLogger initializes the Zap logger.
 func InitLogger() {
-	logger, _ := zap.NewProduction()
-	log = logger
+	var err error
+	log, err = zap.NewProduction()
+	if err != nil {
+		panic(err)
+	}
 }
 
+// GetLogger returns the Zap logger.
 func GetLogger() *zap.Logger {
+	if log == nil {
+		InitLogger()
+	}
 	return log
 }
 
-func ErrorField(err error) zap.Field {
-	return zap.Error(err)
+// GetSugaredLogger returns a SugaredLogger for formatted logs.
+func GetSugaredLogger() *zap.SugaredLogger {
+	return GetLogger().Sugar()
 }

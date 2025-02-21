@@ -1,4 +1,3 @@
-// internal/handler/handler.go
 package handler
 
 import (
@@ -25,14 +24,19 @@ func SearchCountryHandler(svc service.CountryService) http.HandlerFunc {
 			return
 		}
 
+		// Fetch country data
 		country, err := svc.GetCountry(ctx, name)
 		if err != nil {
-			log.Error("Failed to get country data", logger.ErrorField(err))
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			log.Error("Failed to get country data", zap.Error(err))
+			http.Error(w, "Error fetching country data", http.StatusInternalServerError)
 			return
 		}
 
 		log.Info("Country data retrieved successfully", zap.String("country", name))
-		json.NewEncoder(w).Encode(country)
+		w.Header().Set("Content-Type", "application/json")
+		if err := json.NewEncoder(w).Encode(country); err != nil {
+			log.Error("Failed to encode response", zap.Error(err))
+			http.Error(w, "Error encoding response", http.StatusInternalServerError)
+		}
 	}
 }
