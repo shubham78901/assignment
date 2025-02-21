@@ -1,22 +1,13 @@
-
-FROM golang:1.20-alpine AS builder
+# Build stage
+FROM golang:1.21 AS builder
 
 WORKDIR /app
-
-COPY go.mod go.sum ./
-RUN go mod download
-
-COPY api ./api
-
-WORKDIR /app/api
-RUN go build -o main ./cmd/main.go
+COPY . .  
+RUN go mod download && go build -o main ./api/cmd/main.go
 
 # Final minimal image
 FROM alpine:latest
-WORKDIR /root/
-
-COPY --from=builder /app/api/main .
+COPY --from=builder /app/main /main
 
 EXPOSE 8000
-
-CMD ["./main"]
+CMD ["/main"]
