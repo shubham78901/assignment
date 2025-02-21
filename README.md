@@ -1,8 +1,9 @@
 
+
 RUN :GO MOD TIDY
 RUN:go build -o main ./api/cmd/main.go && ./main
  above command will generate binary and run
 
 SWAGGER DOC AT :http://localhost:8000/swagger/index.html
-
-<img width="1470" alt="Screenshot 2025-02-21 at 10 43 03 AM" src="https://github.com/user-attachments/assets/2967b69e-95f1-4f8b-8215-1e6d836e6d1d" />
+<img width="1470" alt="Screenshot 2025-02-21 at 11 25 08 AM" src="https://github.com/user-attachments/assets/e7357b1d-fa93-4c17-bdae-46384b9cd15e" />
+<img width="1470" alt="Screenshot 2025-02-21 at 11 26 02 AM" src="https://github.com/user-attachments/assets/08a5edf4-202c-4c9c-8f0d-b696199a06bd" />
