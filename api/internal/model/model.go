@@ -10,6 +10,9 @@ type Country struct {
 type Name struct {
 	Common string `json:"common"`
 }
+type ErrorResponse struct {
+	Error string `json:"error"`
+}
 
 type Currency struct {
 	Name   string `json:"name"`

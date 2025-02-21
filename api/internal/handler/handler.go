@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"assignment/api/internal/logger"
+	"assignment/api/internal/logger" // Import model for Swagger response
 	"assignment/api/internal/service"
 	"context"
 	"encoding/json"
@@ -11,6 +11,18 @@ import (
 	"go.uber.org/zap"
 )
 
+// SearchCountryHandler handles searching for a country by name.
+//
+// @Summary Search country by name
+// @Description Fetches details of a country using its name.
+// @Tags Countries
+// @Accept  json
+// @Produce  json
+// @Param name query string true "Country Name"
+// @Success 200 {object} model.Country "Successfully retrieved country details"
+// @Failure 400 {object} map[string]string "Bad Request - Missing country name"
+// @Failure 500 {object} map[string]string "Internal Server Error"
+// @Router /countries/search [get]
 func SearchCountryHandler(svc service.CountryService) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		log := logger.GetLogger()
@@ -24,19 +36,15 @@ func SearchCountryHandler(svc service.CountryService) http.HandlerFunc {
 			return
 		}
 
-		// Fetch country data
 		country, err := svc.GetCountry(ctx, name)
 		if err != nil {
 			log.Error("Failed to get country data", zap.Error(err))
-			http.Error(w, "Error fetching country data", http.StatusInternalServerError)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
 		log.Info("Country data retrieved successfully", zap.String("country", name))
 		w.Header().Set("Content-Type", "application/json")
-		if err := json.NewEncoder(w).Encode(country); err != nil {
-			log.Error("Failed to encode response", zap.Error(err))
-			http.Error(w, "Error encoding response", http.StatusInternalServerError)
-		}
+		json.NewEncoder(w).Encode(country)
 	}
 }

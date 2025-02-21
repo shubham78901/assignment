@@ -1,0 +1,77 @@
+basePath: /api
+definitions:
+  model.Country:
+    properties:
+      capital:
+        items:
+          type: string
+        type: array
+      currencies:
+        additionalProperties:
+          $ref: '#/definitions/model.Currency'
+        type: object
+      name:
+        $ref: '#/definitions/model.Name'
+      population:
+        type: integer
+    type: object
+  model.Currency:
+    properties:
+      name:
+        type: string
+      symbol:
+        type: string
+    type: object
+  model.Name:
+    properties:
+      common:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is an API for fetching country information.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Country API
+  version: "1.0"
+paths:
+  /countries/search:
+    get:
+      consumes:
+      - application/json
+      description: Fetches details of a country using its name.
+      parameters:
+      - description: Country Name
+        in: query
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved country details
+          schema:
+            $ref: '#/definitions/model.Country'
+        "400":
+          description: Bad Request - Missing country name
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Search country by name
+      tags:
+      - Countries
+swagger: "2.0"
